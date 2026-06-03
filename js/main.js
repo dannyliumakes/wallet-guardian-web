@@ -18,6 +18,12 @@ const translations = {
     demo_placeholder: '示範區域',
     how_title: '鄙視你的購物衝動！',
     how_desc: '每當你想要購物時，只要把滑鼠移動到「🛍️購買」或「🛒加入購物車」的按鈕上，貓貓與狗狗就會用鄙視的眼神看著你😾。',
+    how_slide1_title: '偵測購物意圖',
+    how_slide1_text: 'Wallet Guardian 會自動掃描你瀏覽的網頁，當你靠近「購買」或「加入購物車」按鈕時，系統立刻啟動警戒模式。',
+    how_slide2_title: '寵物鄙視攻擊',
+    how_slide2_text: '憤怒的貓貓或狗狗會跳出畫面，用鄙視的眼神盯著你，搭配嘲諷的文字，讓你重新思考這筆消費是否真的必要。',
+    how_slide3_title: '理性消費覺醒',
+    how_slide3_text: '在被寵物鄙視之後，你會冷靜下來並關閉分頁，不知不覺就省下了一筆錢。錢包守住了，謝謝貓狗！',
     wishlist_title: '願望清單 Wishlist',
     wishlist_desc: '想讓哪家網站也被鄙視？告訴我們，我們會派寵物去駐守！',
     wishlist_label: '網站名稱 / 網址',
@@ -48,6 +54,12 @@ const translations = {
     how_title: 'Judge Your Shopping Impulse!',
     how_desc:
       'Whenever you try to shop, just hover over the "🛍️ Buy" or "🛒 Add to Cart" button — cats and dogs will judge you with a disdainful stare 😾.',
+    how_slide1_title: 'Detect Shopping Intent',
+    how_slide1_text: 'Wallet Guardian automatically scans the pages you browse. When you hover near a "Buy" or "Add to Cart" button, the system immediately enters alert mode.',
+    how_slide2_title: 'Pet Disdain Attack',
+    how_slide2_text: 'An angry cat or dog pops up, staring at you with pure contempt, accompanied by sarcastic messages that make you rethink whether this purchase is really necessary.',
+    how_slide3_title: 'Rational Awakening',
+    how_slide3_text: 'After being judged by the pets, you calm down and close the tab, unknowingly saving money. Wallet protected — thank you, cats and dogs!',
     wishlist_title: 'Wishlist',
     wishlist_desc: 'Want another website to be guarded? Tell us and we\'ll send our pets to patrol!',
     wishlist_label: 'Website Name / URL',
@@ -187,5 +199,68 @@ window.addEventListener('resize', () => {
   }
 });
 
-// ===== Init ===== 
+// ===== Carousel =====
+(function initCarousel() {
+  const track = document.querySelector('[data-carousel-track]');
+  const slides = track ? track.querySelectorAll('.carousel-slide') : [];
+  const dots = document.querySelectorAll('.carousel-dot');
+  if (!track || slides.length === 0) return;
+
+  let currentIndex = 0;
+  let intervalId = null;
+  const INTERVAL_MS = 4000;
+  const totalSlides = slides.length;
+
+  function goTo(index) {
+    // wrap around
+    if (index < 0) index = totalSlides - 1;
+    if (index >= totalSlides) index = 0;
+
+    // update slides (semantic active marker)
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+
+    // update dots
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+
+    // move track
+    track.style.transform = `translateX(-${index * 100}%)`;
+    currentIndex = index;
+  }
+
+  function startAuto() {
+    stopAuto();
+    intervalId = setInterval(() => goTo(currentIndex + 1), INTERVAL_MS);
+  }
+
+  function stopAuto() {
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+  }
+
+  // Dot click
+  dots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      const idx = parseInt(dot.getAttribute('data-index'), 10);
+      goTo(idx);
+      startAuto(); // reset timer on manual click
+    });
+  });
+
+  // Pause on hover
+  const carousel = document.querySelector('[data-carousel]');
+  if (carousel) {
+    carousel.addEventListener('mouseenter', stopAuto);
+    carousel.addEventListener('mouseleave', startAuto);
+  }
+
+  startAuto();
+})();
+
+// ===== Init =====
 applyLanguage('zh-TW');
