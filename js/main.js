@@ -187,5 +187,5 @@ window.addEventListener('resize', () => {
   }
 });
 
-// ===== Init =====
+// ===== Init ===== 
 applyLanguage('zh-TW');
