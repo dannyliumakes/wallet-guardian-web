@@ -163,7 +163,9 @@
           </p>
           <form id="wishlistForm" novalidate>
             <label for="wishlistInput" data-i18n="wishlist_label">網站名稱 / 網址</label>
-            <textarea id="wishlistInput" placeholder="請詳細描述問題..." data-i18n-placeholder="form_placeholder"></textarea>
+            <input type="text" id="wishlistInput" placeholder="例如: amazon.com" data-i18n-placeholder="wishlist_placeholder" />
+            <label for="wishlistDescInput" data-i18n="wishlist_desc_label">網址說明（選填）</label>
+            <textarea id="wishlistDescInput" placeholder="為什麼希望加入這個網站？" data-i18n-placeholder="wishlist_desc_placeholder"></textarea>
             <button type="submit" class="btn-submit dark" data-i18n="wishlist_submit">提交願望</button>
           </form>
         </div>
@@ -199,7 +201,7 @@
           <a href="#" data-i18n="footer_privacy">Privacy Policy</a>
           <a href="#" data-i18n="footer_terms">Terms of Service</a>
         </div>
-        <div class="footer-copy" data-i18n="footer_copy">© 2024 Wallet Guardian</div>
+        <div class="footer-copy" data-i18n="footer_copy">© 2026 Wallet Guardian</div>
       </div>
     </div>
   </footer>
@@ -207,6 +209,7 @@
   <!-- ===== TOAST ===== -->
   <div class="toast" id="toast"></div>
 
+  <script src="js/translations.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

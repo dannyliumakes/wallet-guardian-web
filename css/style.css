@@ -26,7 +26,7 @@
   --color-grid-line:         rgba(26, 26, 26, 0.07);
 
   /* --- Typography --- */
-  --font-family-zh:          'Noto Sans TC', sans-serif;
+  --font-family-zh:          'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
   --font-family-en:          'Plus Jakarta Sans', sans-serif;
 
   /* Font sizes (mobile-first) */
@@ -587,15 +587,13 @@ section {
 
 .carousel-slide {
   min-width: 100%;
-  padding: 32px 24px;
+  padding: 0 12px;
   box-sizing: border-box;
   text-align: center;
 }
 
 .carousel-image-placeholder {
   width: 100%;
-  max-width: 480px;
-  height: 260px;
   border: var(--border-brutal);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-brutal);
@@ -627,7 +625,7 @@ section {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-top: 24px;
+  margin: 4px 0;
 }
 
 .carousel-dot {
