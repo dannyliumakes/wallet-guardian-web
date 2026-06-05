@@ -5,24 +5,18 @@
 /* ===== Design Tokens (edit here for global changes) ===== */
 :root {
   /* --- Colors (Bold Pop / Neo-Brutalist) --- */
-  --color-bg:                #fff8e7;   /* warm paper base */
-  --color-surface:           #ffffff;   /* inner panels (textarea, icons) */
+  --color-bg:                #fff8e7;
+  --color-surface:           #ffffff;
   --color-text:              #1a1a1a;
   --color-text-light:        #2a2a2a;
   --color-text-muted:        #6b6b6b;
   --color-text-white:        #ffffff;
-  --color-accent-yellow:     #ffd93d;   /* neon yellow */
-  --color-accent-orange:     #ff5722;   /* punchy orange */
-  --color-bg-light:          #ffd93d;
+  --color-accent-yellow:     #ffd93d;
+  --color-accent-orange:     #ff5722;
   --color-footer-bg:         #1a1a1a;
   --color-footer-text:       #e2e2e2;
-  --color-header-bg:         #fff8e7;
   --color-border-light:      #f3f3f3;
-  --color-border-dark:       #1a1a1a;
-  --color-placeholder-bg:    #878787;
-  --color-lang-text:         #1a1a1a;
-
-  /* Grid texture line color */
+  --color-shadow-soft:       rgba(26, 26, 26, 0.12);
   --color-grid-line:         rgba(26, 26, 26, 0.07);
 
   /* --- Typography --- */
@@ -50,23 +44,18 @@
   /* --- Spacing --- */
   --section-padding:         60px 0;
 
-  /* --- Border Radius (sharp / brutalist) --- */
+  /* --- Border Radius --- */
   --radius-hero:             6px;
-  --radius-card:             6px;
-  --radius-btn:              4px;
-  --radius-submit:           4px;
-  --radius-textarea:         4px;
-  --radius-placeholder:      6px;
-  --radius-lang:             4px;
-  --radius-icon:             6px;
+  --radius-sm:               4px;
+  --radius-md:               6px;
 
   /* --- Brutalist borders & hard shadows --- */
-  --border-brutal:           3px solid #1a1a1a;
-  --border-brutal-thin:      2px solid #1a1a1a;
-  --shadow-brutal:           6px 6px 0 #1a1a1a;
-  --shadow-brutal-sm:        4px 4px 0 #1a1a1a;
-  --shadow-brutal-orange:    6px 6px 0 #ff5722;
-  --shadow-brutal-yellow:    6px 6px 0 #ffd93d;
+  --border-brutal:           3px solid var(--color-text);
+  --border-brutal-thin:      2px solid var(--color-text);
+  --shadow-brutal:           6px 6px 0 var(--color-text);
+  --shadow-brutal-sm:        4px 4px 0 var(--color-text);
+  --shadow-brutal-orange:    6px 6px 0 var(--color-accent-orange);
+  --shadow-brutal-yellow:    6px 6px 0 var(--color-accent-yellow);
 
   /* --- Transitions --- */
   --transition-fast:         0.15s ease;
@@ -173,25 +162,25 @@ ul {
   gap: 4px;
   background: var(--color-surface);
   border: var(--border-brutal-thin);
-  border-radius: var(--radius-lang);
+  border-radius: var(--radius-sm);
   padding: 6px 12px;
   font-size: var(--fs-nav);
   cursor: pointer;
   user-select: none;
-  box-shadow: 3px 3px 0 var(--color-border-dark);
+  box-shadow: 3px 3px 0 var(--color-text);
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .lang-switcher:active {
   transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 var(--color-border-dark);
+  box-shadow: 1px 1px 0 var(--color-text);
 }
 
 .lang-switcher .globe-icon {
   width: 15px;
   height: 15px;
-  background: var(--color-lang-text);
-  border-radius: var(--radius-icon);
+  background: var(--color-text);
+  border-radius: var(--radius-md);
   position: relative;
   flex-shrink: 0;
 }
@@ -200,14 +189,14 @@ ul {
   content: '';
   position: absolute;
   inset: 2px;
-  border: 1.5px solid var(--color-header-bg);
-  border-radius: var(--radius-icon);
+  border: 1.5px solid var(--color-bg);
+  border-radius: var(--radius-md);
 }
 
 .lang-option {
   font-family: var(--font-family-en);
   font-weight: 500;
-  color: var(--color-lang-text);
+  color: var(--color-text);
   padding: 0 2px;
   transition: opacity var(--transition-fast);
 }
@@ -236,10 +225,10 @@ ul {
   left: 0;
   right: 0;
   z-index: 100;
-  background: var(--color-header-bg);
+  background: var(--color-bg);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-bottom: 3px solid var(--color-border-dark);
+  border-bottom: 3px solid var(--color-text);
 }
 
 .header .container {
@@ -285,20 +274,20 @@ ul {
 
 .nav-desktop .btn-chrome-sm {
   background: var(--color-text);
-  color: var(--color-text-white) !important;
+  color: var(--color-text-white);
   font-family: var(--font-family-zh);
   font-weight: 700;
   font-size: var(--fs-nav-btn);
   padding: 9px 20px;
   border: var(--border-brutal);
-  border-radius: var(--radius-btn);
+  border-radius: var(--radius-sm);
   box-shadow: var(--shadow-brutal-sm);
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .nav-desktop .btn-chrome-sm:hover {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--color-border-dark);
+  box-shadow: 2px 2px 0 var(--color-text);
 }
 
 /* ============================================================
@@ -343,9 +332,9 @@ ul {
   left: 0;
   right: 0;
   background: var(--color-bg);
-  border-bottom: 3px solid var(--color-border-dark);
+  border-bottom: 3px solid var(--color-text);
   padding: 16px 20px;
-  box-shadow: 0 8px 0 rgba(26, 26, 26, 0.12);
+  box-shadow: 0 8px 0 var(--color-shadow-soft);
   z-index: 99;
 }
 
@@ -373,7 +362,7 @@ ul {
   text-align: center;
   padding: 12px;
   border: var(--border-brutal);
-  border-radius: var(--radius-btn);
+  border-radius: var(--radius-sm);
   box-shadow: var(--shadow-brutal-sm);
 }
 
@@ -484,7 +473,7 @@ section {
   font-weight: 700;
   font-size: var(--fs-btn-primary);
   padding: 14px 28px;
-  border-radius: var(--radius-btn);
+  border-radius: var(--radius-sm);
   border: var(--border-brutal);
   box-shadow: var(--shadow-brutal-orange);
   cursor: pointer;
@@ -500,7 +489,7 @@ section {
   width: 20px;
   height: 20px;
   background: linear-gradient(135deg, #4285F4, #34A853, #FBBC04, #EA4335);
-  border-radius: var(--radius-icon);
+  border-radius: var(--radius-md);
   flex-shrink: 0;
 }
 
@@ -515,8 +504,8 @@ section {
   height: 40px;
   background: var(--color-surface);
   border: var(--border-brutal-thin);
-  border-radius: var(--radius-icon);
-  box-shadow: 3px 3px 0 var(--color-border-dark);
+  border-radius: var(--radius-md);
+  box-shadow: 3px 3px 0 var(--color-text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -528,7 +517,7 @@ section {
 
 .social-icons .social-placeholder:hover {
   transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 var(--color-border-dark);
+  box-shadow: 1px 1px 0 var(--color-text);
 }
 
 /* -- Hero Image -- */
@@ -543,7 +532,7 @@ section {
   max-width: 400px;
   height: 280px;
   border: var(--border-brutal);
-  border-radius: var(--radius-placeholder);
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-brutal);
   background: var(--color-surface);
   object-fit: cover;
@@ -595,7 +584,7 @@ section {
 .carousel-image-placeholder {
   width: 100%;
   border: var(--border-brutal);
-  border-radius: var(--radius-card);
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-brutal);
   background: var(--color-surface);
   object-fit: cover;
@@ -603,23 +592,6 @@ section {
   margin: 0 auto 24px;
 }
 
-.carousel-title {
-  font-family: var(--font-family-zh);
-  font-size: var(--fs-subtitle);
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 12px;
-}
-
-.carousel-text {
-  font-family: var(--font-family-zh);
-  font-size: var(--fs-body);
-  font-weight: 400;
-  color: var(--color-text-light);
-  line-height: 1.8;
-  max-width: 580px;
-  margin: 0 auto;
-}
 
 .carousel-indicators {
   display: flex;
@@ -664,7 +636,7 @@ section {
 
 .form-card {
   border: var(--border-brutal);
-  border-radius: var(--radius-card);
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-brutal);
   padding: 32px 24px;
 }
@@ -674,7 +646,7 @@ section {
 }
 
 .form-card.feedback {
-  background: var(--color-bg-light);
+  background: var(--color-accent-yellow);
 }
 
 .form-card .card-header {
@@ -689,8 +661,8 @@ section {
   height: 48px;
   background: var(--color-surface);
   border: var(--border-brutal-thin);
-  border-radius: var(--radius-icon);
-  box-shadow: 3px 3px 0 var(--color-border-dark);
+  border-radius: var(--radius-md);
+  box-shadow: 3px 3px 0 var(--color-text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -723,25 +695,31 @@ section {
   margin-bottom: 8px;
 }
 
+.form-card input[type="text"],
 .form-card textarea {
   width: 100%;
   padding: 14px 16px;
   border: var(--border-brutal-thin);
-  border-radius: var(--radius-textarea);
+  border-radius: var(--radius-sm);
   font-family: var(--font-family-zh);
   font-size: var(--fs-label);
   color: var(--color-text);
-  resize: vertical;
-  min-height: 100px;
   background: var(--color-surface);
   outline: none;
   transition: box-shadow var(--transition-fast);
 }
 
-.form-card textarea:focus {
-  box-shadow: 3px 3px 0 var(--color-border-dark);
+.form-card textarea {
+  resize: vertical;
+  min-height: 100px;
 }
 
+.form-card input[type="text"]:focus,
+.form-card textarea:focus {
+  box-shadow: 3px 3px 0 var(--color-text);
+}
+
+.form-card input[type="text"]::placeholder,
 .form-card textarea::placeholder {
   color: var(--color-text-muted);
 }
@@ -751,7 +729,7 @@ section {
   width: 100%;
   padding: 14px;
   border: var(--border-brutal);
-  border-radius: var(--radius-submit);
+  border-radius: var(--radius-sm);
   font-family: var(--font-family-zh);
   font-weight: 700;
   font-size: var(--fs-btn-submit);
@@ -763,7 +741,7 @@ section {
 
 .btn-submit:hover {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--color-border-dark);
+  box-shadow: 2px 2px 0 var(--color-text);
 }
 
 .btn-submit.dark {
@@ -837,7 +815,7 @@ section {
   color: var(--color-text-white);
   padding: 14px 28px;
   border: var(--border-brutal);
-  border-radius: var(--radius-btn);
+  border-radius: var(--radius-sm);
   box-shadow: var(--shadow-brutal-orange);
   font-size: var(--fs-label);
   font-weight: 700;
@@ -909,10 +887,6 @@ section {
   .hero-image-placeholder {
     height: 380px;
     max-width: 480px;
-  }
-
-  .demo-placeholder {
-    height: 400px;
   }
 
   .forms-grid {

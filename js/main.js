@@ -60,32 +60,31 @@ langDesk.addEventListener('click', toggleLanguage);
 langMob.addEventListener('click', toggleLanguage);
 
 // ===== Mobile Menu =====
+const closeMobileNav = () => {
+  mobileNav.classList.remove('open');
+  menuToggle.classList.remove('open');
+  menuToggle.setAttribute('aria-expanded', 'false');
+};
+
 menuToggle.addEventListener('click', () => {
   const isOpen = mobileNav.classList.toggle('open');
   menuToggle.classList.toggle('open', isOpen);
   menuToggle.setAttribute('aria-expanded', isOpen);
 });
 
-// Close mobile nav when a link is clicked
 mobileNav.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    mobileNav.classList.remove('open');
-    menuToggle.classList.remove('open');
-    menuToggle.setAttribute('aria-expanded', 'false');
-  });
+  link.addEventListener('click', closeMobileNav);
 });
 
 // ===== Smooth Anchor Scroll =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    const targetId = this.getAttribute('href');
+  anchor.addEventListener('click', e => {
+    const targetId = anchor.getAttribute('href');
     if (targetId === '#') return;
-
     const target = document.querySelector(targetId);
     if (target) {
       e.preventDefault();
-      const offset = 80; // header height
-      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      const top = target.getBoundingClientRect().top + window.scrollY - 80;
       window.scrollTo({ top, behavior: 'smooth' });
     }
   });
@@ -104,27 +103,19 @@ function showToast(message) {
 }
 
 // ===== Form Submissions =====
-wishlistForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const t = translations[currentLang];
-  showToast(t.toast_wishlist);
-  wishlistForm.reset();
-});
+const handleFormSubmit = (form, toastKey) => {
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    showToast(translations[currentLang][toastKey]);
+    form.reset();
+  });
+};
 
-feedbackForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const t = translations[currentLang];
-  showToast(t.toast_feedback);
-  feedbackForm.reset();
-});
+handleFormSubmit(wishlistForm, 'toast_wishlist');
+handleFormSubmit(feedbackForm, 'toast_feedback');
 
-// ===== Close mobile nav on window resize (going desktop) =====
 window.addEventListener('resize', () => {
-  if (window.innerWidth >= 1024) {
-    mobileNav.classList.remove('open');
-    menuToggle.classList.remove('open');
-    menuToggle.setAttribute('aria-expanded', 'false');
-  }
+  if (window.innerWidth >= 1024) closeMobileNav();
 });
 
 // ===== Carousel =====
@@ -169,12 +160,8 @@ window.addEventListener('resize', () => {
     if (currentIndex === totalSlides) snapTo(0);
   });
 
-  // Dot click
-  dots.forEach((dot) => {
-    dot.addEventListener('click', () => {
-      const idx = parseInt(dot.getAttribute('data-index'), 10);
-      goTo(idx);
-    });
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => goTo(Number(dot.dataset.index)));
   });
 
   // Continuous auto-play, no hover pause

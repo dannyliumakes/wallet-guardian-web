@@ -1,2 +1,3 @@
 {"type":"server-started","port":55676,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:55676","screen_dir":"/Users/dannyliu/Documents/wallet guardian web/.superpowers/brainstorm/12795-1780664348/content","state_dir":"/Users/dannyliu/Documents/wallet guardian web/.superpowers/brainstorm/12795-1780664348/state"}
 {"type":"screen-added","file":"/Users/dannyliu/Documents/wallet guardian web/.superpowers/brainstorm/12795-1780664348/content/design-styles.html"}
+{"type":"server-stopped","reason":"idle timeout"}
