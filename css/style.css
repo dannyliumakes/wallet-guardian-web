@@ -4,22 +4,26 @@
 
 /* ===== Design Tokens (edit here for global changes) ===== */
 :root {
-  /* --- Colors --- */
-  --color-bg:                #ffffff;
-  --color-text:              #232323;
-  --color-text-light:        #4d4633;
-  --color-text-muted:        #6b7280;
+  /* --- Colors (Bold Pop / Neo-Brutalist) --- */
+  --color-bg:                #fff8e7;   /* warm paper base */
+  --color-surface:           #ffffff;   /* inner panels (textarea, icons) */
+  --color-text:              #1a1a1a;
+  --color-text-light:        #2a2a2a;
+  --color-text-muted:        #6b6b6b;
   --color-text-white:        #ffffff;
-  --color-accent-yellow:     #ffd93d;
-  --color-accent-orange:     #fe864a;
-  --color-bg-light:          #e3e3e3;
-  --color-footer-bg:         #232323;
+  --color-accent-yellow:     #ffd93d;   /* neon yellow */
+  --color-accent-orange:     #ff5722;   /* punchy orange */
+  --color-bg-light:          #ffd93d;
+  --color-footer-bg:         #1a1a1a;
   --color-footer-text:       #e2e2e2;
-  --color-header-bg:         rgba(255, 255, 255, 0.95);
+  --color-header-bg:         #fff8e7;
   --color-border-light:      #f3f3f3;
-  --color-border-dark:       #232323;
+  --color-border-dark:       #1a1a1a;
   --color-placeholder-bg:    #878787;
-  --color-lang-text:         #705d00;
+  --color-lang-text:         #1a1a1a;
+
+  /* Grid texture line color */
+  --color-grid-line:         rgba(26, 26, 26, 0.07);
 
   /* --- Typography --- */
   --font-family-zh:          'Noto Sans TC', sans-serif;
@@ -28,10 +32,10 @@
   /* Font sizes (mobile-first) */
   --fs-logo:                 24px;
   --fs-logo-footer:          26px;
-  --fs-hero-title:           32px;
+  --fs-hero-title:           38px;
   --fs-hero-desc:            15px;
   --fs-btn-primary:          18px;
-  --fs-section-title:        28px;
+  --fs-section-title:        34px;
   --fs-subtitle:             16px;
   --fs-body:                 15px;
   --fs-card-title:           22px;
@@ -46,15 +50,23 @@
   /* --- Spacing --- */
   --section-padding:         60px 0;
 
-  /* --- Border Radius --- */
-  --radius-hero:             24px;
-  --radius-card:             24px;
-  --radius-btn:              62px;
-  --radius-submit:           24px;
-  --radius-textarea:         12px;
-  --radius-placeholder:      24px;
-  --radius-lang:             9999px;
-  --radius-icon:             50%;
+  /* --- Border Radius (sharp / brutalist) --- */
+  --radius-hero:             6px;
+  --radius-card:             6px;
+  --radius-btn:              4px;
+  --radius-submit:           4px;
+  --radius-textarea:         4px;
+  --radius-placeholder:      6px;
+  --radius-lang:             4px;
+  --radius-icon:             6px;
+
+  /* --- Brutalist borders & hard shadows --- */
+  --border-brutal:           3px solid #1a1a1a;
+  --border-brutal-thin:      2px solid #1a1a1a;
+  --shadow-brutal:           6px 6px 0 #1a1a1a;
+  --shadow-brutal-sm:        4px 4px 0 #1a1a1a;
+  --shadow-brutal-orange:    6px 6px 0 #ff5722;
+  --shadow-brutal-yellow:    6px 6px 0 #ffd93d;
 
   /* --- Transitions --- */
   --transition-fast:         0.15s ease;
@@ -65,10 +77,10 @@
 /* ===== Tablet (≥640px) ===== */
 @media (min-width: 640px) {
   :root {
-    --fs-hero-title:     36px;
-    --fs-section-title:  32px;
+    --fs-hero-title:     46px;
+    --fs-section-title:  40px;
     --fs-hero-desc:      16px;
-    --radius-hero:       28px;
+    --radius-hero:       8px;
   }
 }
 
@@ -76,18 +88,18 @@
 @media (min-width: 1024px) {
   :root {
     --fs-logo:           28px;
-    --fs-hero-title:     44px;
+    --fs-hero-title:     60px;
     --fs-hero-desc:      17px;
     --fs-subtitle:       18px;
-    --fs-card-title:     22px;
-    --radius-hero:       40px;
+    --fs-card-title:     24px;
+    --radius-hero:       10px;
   }
 }
 
 /* ===== Large Desktop (≥1280px) ===== */
 @media (min-width: 1280px) {
   :root {
-    --fs-hero-title:     48px;
+    --fs-hero-title:     72px;
   }
 }
 
@@ -108,7 +120,11 @@ html {
 
 body {
   font-family: var(--font-family-zh);
-  background: var(--color-bg);
+  background-color: var(--color-bg);
+  background-image:
+    linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
   color: var(--color-text);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -155,18 +171,20 @@ ul {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: var(--color-border-light);
-  border: 2px solid var(--color-border-dark);
+  background: var(--color-surface);
+  border: var(--border-brutal-thin);
   border-radius: var(--radius-lang);
-  padding: 6px 14px;
+  padding: 6px 12px;
   font-size: var(--fs-nav);
   cursor: pointer;
   user-select: none;
-  transition: background var(--transition-normal);
+  box-shadow: 3px 3px 0 var(--color-border-dark);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .lang-switcher:active {
-  background: #e5e5e5;
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--color-border-dark);
 }
 
 .lang-switcher .globe-icon {
@@ -221,7 +239,7 @@ ul {
   background: var(--color-header-bg);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 3px solid var(--color-border-dark);
 }
 
 .header .container {
@@ -238,7 +256,8 @@ ul {
   font-family: var(--font-family-en);
   font-weight: 800;
   font-size: var(--fs-logo);
-  letter-spacing: -0.05em;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
   color: var(--color-text);
   white-space: nowrap;
 }
@@ -252,29 +271,34 @@ ul {
 
 .nav-desktop a {
   font-family: var(--font-family-en);
-  font-weight: 400;
+  font-weight: 700;
   font-size: var(--fs-nav);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--color-text);
-  transition: opacity var(--transition-normal);
+  transition: color var(--transition-normal);
 }
 
 .nav-desktop a:hover {
-  opacity: 0.6;
+  color: var(--color-accent-orange);
 }
 
 .nav-desktop .btn-chrome-sm {
   background: var(--color-text);
   color: var(--color-text-white) !important;
   font-family: var(--font-family-zh);
-  font-weight: 500;
+  font-weight: 700;
   font-size: var(--fs-nav-btn);
-  padding: 8px 20px;
-  border-radius: 38px;
-  transition: opacity var(--transition-normal);
+  padding: 9px 20px;
+  border: var(--border-brutal);
+  border-radius: var(--radius-btn);
+  box-shadow: var(--shadow-brutal-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .nav-desktop .btn-chrome-sm:hover {
-  opacity: 0.85;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--color-border-dark);
 }
 
 /* ============================================================
@@ -315,13 +339,13 @@ ul {
 .mobile-nav {
   display: none;
   position: fixed;
-  top: 60px;
+  top: 63px;
   left: 0;
   right: 0;
   background: var(--color-bg);
-  border-bottom: 1px solid #eee;
+  border-bottom: 3px solid var(--color-border-dark);
   padding: 16px 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 0 rgba(26, 26, 26, 0.12);
   z-index: 99;
 }
 
@@ -333,12 +357,24 @@ ul {
   display: block;
   padding: 12px 0;
   font-family: var(--font-family-en);
+  font-weight: 700;
   font-size: var(--fs-nav-btn);
-  border-bottom: 1px solid var(--color-border-light);
+  border-bottom: 2px solid var(--color-border-light);
 }
 
 .mobile-nav a:last-child {
   border-bottom: none;
+}
+
+.mobile-nav .btn-chrome-mobile {
+  margin-top: 8px;
+  background: var(--color-text);
+  color: var(--color-text-white);
+  text-align: center;
+  padding: 12px;
+  border: var(--border-brutal);
+  border-radius: var(--radius-btn);
+  box-shadow: var(--shadow-brutal-sm);
 }
 
 .mobile-nav .lang-row {
@@ -364,6 +400,17 @@ section {
   line-height: 1.2;
 }
 
+.section-title::after {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 6px;
+  margin: 14px auto 0;
+  background: var(--color-accent-orange);
+  border: var(--border-brutal-thin);
+  border-radius: 2px;
+}
+
 /* ============================================================
    HERO
    ============================================================ */
@@ -373,8 +420,14 @@ section {
 }
 
 .hero .hero-bg {
-  background: var(--color-accent-yellow);
+  background-color: var(--color-accent-yellow);
+  background-image:
+    linear-gradient(rgba(26, 26, 26, 0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 26, 26, 0.10) 1px, transparent 1px);
+  background-size: 28px 28px;
+  border: var(--border-brutal);
   border-radius: var(--radius-hero);
+  box-shadow: var(--shadow-brutal);
   padding: 40px 24px;
   overflow: hidden;
 }
@@ -389,7 +442,7 @@ section {
   font-family: var(--font-family-zh);
   font-weight: 900;
   font-size: var(--fs-hero-title);
-  line-height: 1.2;
+  line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--color-text);
   margin-bottom: 16px;
@@ -406,6 +459,12 @@ section {
 
 .hero-text .desc span.highlight {
   font-weight: 900;
+  background: var(--color-text);
+  color: var(--color-accent-yellow);
+  padding: 1px 8px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .hero-actions {
@@ -422,18 +481,19 @@ section {
   background: var(--color-text);
   color: var(--color-text-white);
   font-family: var(--font-family-zh);
-  font-weight: 500;
+  font-weight: 700;
   font-size: var(--fs-btn-primary);
   padding: 14px 28px;
   border-radius: var(--radius-btn);
-  border: none;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal-orange);
   cursor: pointer;
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 var(--color-accent-orange);
 }
 
 .btn-primary .chrome-icon {
@@ -451,15 +511,24 @@ section {
 }
 
 .social-icons .social-placeholder {
-  width: 36px;
-  height: 36px;
-  background: #e0e0e0;
+  width: 40px;
+  height: 40px;
+  background: var(--color-surface);
+  border: var(--border-brutal-thin);
   border-radius: var(--radius-icon);
+  box-shadow: 3px 3px 0 var(--color-border-dark);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  color: #666;
+  color: var(--color-text);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  cursor: pointer;
+}
+
+.social-icons .social-placeholder:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--color-border-dark);
 }
 
 /* -- Hero Image -- */
@@ -473,7 +542,10 @@ section {
   width: 100%;
   max-width: 400px;
   height: 280px;
+  border: var(--border-brutal);
   border-radius: var(--radius-placeholder);
+  box-shadow: var(--shadow-brutal);
+  background: var(--color-surface);
   object-fit: cover;
   display: block;
 }
@@ -524,7 +596,10 @@ section {
   width: 100%;
   max-width: 480px;
   height: 260px;
-  border-radius: 16px;
+  border: var(--border-brutal);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-brutal);
+  background: var(--color-surface);
   object-fit: cover;
   display: block;
   margin: 0 auto 24px;
@@ -556,24 +631,23 @@ section {
 }
 
 .carousel-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: none;
-  background: #ccc;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: var(--border-brutal-thin);
+  background: var(--color-surface);
   cursor: pointer;
   transition: background 0.3s, transform 0.2s;
   padding: 0;
 }
 
 .carousel-dot.active {
-  background: var(--color-accent-yellow);
+  background: var(--color-accent-orange);
   transform: scale(1.2);
 }
 
 .carousel-dot:hover {
   background: var(--color-accent-yellow);
-  opacity: 0.7;
 }
 
 
@@ -591,7 +665,9 @@ section {
 }
 
 .form-card {
+  border: var(--border-brutal);
   border-radius: var(--radius-card);
+  box-shadow: var(--shadow-brutal);
   padding: 32px 24px;
 }
 
@@ -613,8 +689,10 @@ section {
 .form-card .card-icon {
   width: 48px;
   height: 48px;
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--color-surface);
+  border: var(--border-brutal-thin);
   border-radius: var(--radius-icon);
+  box-shadow: 3px 3px 0 var(--color-border-dark);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -650,15 +728,20 @@ section {
 .form-card textarea {
   width: 100%;
   padding: 14px 16px;
-  border: none;
+  border: var(--border-brutal-thin);
   border-radius: var(--radius-textarea);
   font-family: var(--font-family-zh);
   font-size: var(--fs-label);
   color: var(--color-text);
   resize: vertical;
   min-height: 100px;
-  background: var(--color-bg);
+  background: var(--color-surface);
   outline: none;
+  transition: box-shadow var(--transition-fast);
+}
+
+.form-card textarea:focus {
+  box-shadow: 3px 3px 0 var(--color-border-dark);
 }
 
 .form-card textarea::placeholder {
@@ -669,18 +752,20 @@ section {
 .btn-submit {
   width: 100%;
   padding: 14px;
-  border: none;
+  border: var(--border-brutal);
   border-radius: var(--radius-submit);
   font-family: var(--font-family-zh);
-  font-weight: 500;
+  font-weight: 700;
   font-size: var(--fs-btn-submit);
   cursor: pointer;
+  box-shadow: var(--shadow-brutal-sm);
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
   margin-top: 16px;
 }
 
 .btn-submit:hover {
-  transform: translateY(-1px);
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--color-border-dark);
 }
 
 .btn-submit.dark {
@@ -689,8 +774,8 @@ section {
 }
 
 .btn-submit.yellow {
-  background: var(--color-accent-yellow);
-  color: var(--color-text);
+  background: var(--color-text);
+  color: var(--color-accent-yellow);
 }
 
 /* ============================================================
@@ -698,6 +783,7 @@ section {
    ============================================================ */
 .footer {
   background: var(--color-footer-bg);
+  border-top: 3px solid var(--color-accent-orange);
   padding: 36px 0;
 }
 
@@ -730,7 +816,7 @@ section {
 }
 
 .footer-links a:hover {
-  color: var(--color-text-white);
+  color: var(--color-accent-orange);
 }
 
 .footer-copy {
@@ -752,8 +838,11 @@ section {
   background: var(--color-text);
   color: var(--color-text-white);
   padding: 14px 28px;
-  border-radius: 12px;
+  border: var(--border-brutal);
+  border-radius: var(--radius-btn);
+  box-shadow: var(--shadow-brutal-orange);
   font-size: var(--fs-label);
+  font-weight: 700;
   font-family: var(--font-family-zh);
   opacity: 0;
   transition: all 0.4s ease;
