@@ -202,64 +202,55 @@ window.addEventListener('resize', () => {
 // ===== Carousel =====
 (function initCarousel() {
   const track = document.querySelector('[data-carousel-track]');
-  const slides = track ? track.querySelectorAll('.carousel-slide') : [];
+  const slides = track ? Array.from(track.querySelectorAll('.carousel-slide')) : [];
   const dots = document.querySelectorAll('.carousel-dot');
   if (!track || slides.length === 0) return;
 
-  let currentIndex = 0;
-  let intervalId = null;
   const INTERVAL_MS = 4000;
   const totalSlides = slides.length;
+  let currentIndex = 0;
+
+  // Clone first slide and append — enables seamless rightward infinite loop
+  const firstClone = slides[0].cloneNode(true);
+  firstClone.classList.remove('active');
+  track.appendChild(firstClone);
+
+  function updateActive(index) {
+    const dotIndex = index % totalSlides;
+    slides.forEach((slide, i) => slide.classList.toggle('active', i === dotIndex));
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === dotIndex));
+  }
 
   function goTo(index) {
-    // wrap around
-    if (index < 0) index = totalSlides - 1;
-    if (index >= totalSlides) index = 0;
-
-    // update slides (semantic active marker)
-    slides.forEach((slide, i) => {
-      slide.classList.toggle('active', i === index);
-    });
-
-    // update dots
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === index);
-    });
-
-    // move track
     track.style.transform = `translateX(-${index * 100}%)`;
     currentIndex = index;
+    updateActive(index);
   }
 
-  function startAuto() {
-    stopAuto();
-    intervalId = setInterval(() => goTo(currentIndex + 1), INTERVAL_MS);
+  function snapTo(index) {
+    track.style.transition = 'none';
+    track.style.transform = `translateX(-${index * 100}%)`;
+    track.getBoundingClientRect(); // force reflow before re-enabling transition
+    track.style.transition = '';
+    currentIndex = index;
+    updateActive(index);
   }
 
-  function stopAuto() {
-    if (intervalId) {
-      clearInterval(intervalId);
-      intervalId = null;
-    }
-  }
+  // After sliding to clone of slide 1, silently snap back to real slide 1
+  track.addEventListener('transitionend', () => {
+    if (currentIndex === totalSlides) snapTo(0);
+  });
 
   // Dot click
   dots.forEach((dot) => {
     dot.addEventListener('click', () => {
       const idx = parseInt(dot.getAttribute('data-index'), 10);
       goTo(idx);
-      startAuto(); // reset timer on manual click
     });
   });
 
-  // Pause on hover
-  const carousel = document.querySelector('[data-carousel]');
-  if (carousel) {
-    carousel.addEventListener('mouseenter', stopAuto);
-    carousel.addEventListener('mouseleave', startAuto);
-  }
-
-  startAuto();
+  // Continuous auto-play, no hover pause
+  setInterval(() => goTo(currentIndex + 1), INTERVAL_MS);
 })();
 
 // ===== Init =====

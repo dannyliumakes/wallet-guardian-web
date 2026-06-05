@@ -473,14 +473,9 @@ section {
   width: 100%;
   max-width: 400px;
   height: 280px;
-  background: linear-gradient(135deg, #a8a8a8 0%, var(--color-placeholder-bg) 100%);
   border-radius: var(--radius-placeholder);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-text-white);
-  font-size: var(--fs-btn-primary);
-  font-weight: 500;
+  object-fit: cover;
+  display: block;
 }
 
 /* ============================================================
@@ -523,6 +518,16 @@ section {
   padding: 32px 24px;
   box-sizing: border-box;
   text-align: center;
+}
+
+.carousel-image-placeholder {
+  width: 100%;
+  max-width: 480px;
+  height: 260px;
+  border-radius: 16px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 24px;
 }
 
 .carousel-title {
@@ -571,25 +576,6 @@ section {
   opacity: 0.7;
 }
 
-.dot-divider {
-  width: 50px;
-  height: 10px;
-  margin: 24px auto 0;
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-}
-
-.dot-divider span {
-  width: 10px;
-  height: 10px;
-  background: #ccc;
-  border-radius: var(--radius-icon);
-}
-
-.dot-divider span:nth-child(2) {
-  background: var(--color-accent-yellow);
-}
 
 /* ============================================================
    FORMS

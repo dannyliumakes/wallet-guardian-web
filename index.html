@@ -9,6 +9,24 @@
   <!-- Noto Sans TC (Chinese) + Plus Jakarta Sans (English) -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="images/favicon.svg" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Wallet Guardian" />
+  <meta property="og:description" content="讓憤怒的寵物守護你的錢包！還在衝動購物嗎？Wallet Guardian 讓你在下單前多思考一下。" />
+  <meta property="og:image"       content="images/og-image.svg" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Wallet Guardian" />
+  <meta name="twitter:description" content="讓憤怒的寵物守護你的錢包！" />
+  <meta name="twitter:image"       content="images/og-image.svg" />
 </head>
 <body>
 
@@ -87,9 +105,7 @@
           </div>
 
           <div class="hero-image-wrap">
-            <div class="hero-image-placeholder">
-              <span data-i18n="demo_placeholder">Demo</span>
-            </div>
+            <img src="images/hero.svg" alt="Wallet Guardian Demo" class="hero-image-placeholder" />
           </div>
         </div>
       </div>
@@ -108,18 +124,15 @@
         <div class="carousel-track" data-carousel-track>
           <!-- Slide 1 -->
           <div class="carousel-slide active" data-index="0">
-            <h3 class="carousel-title" data-i18n="how_slide1_title">偵測購物意圖</h3>
-            <p class="carousel-text" data-i18n="how_slide1_text">Wallet Guardian 會自動掃描你瀏覽的網頁，當你靠近「購買」或「加入購物車」按鈕時，系統立刻啟動警戒模式。</p>
+            <img src="images/slide-1.svg" alt="偵測購物意圖" class="carousel-image-placeholder" />
           </div>
           <!-- Slide 2 -->
           <div class="carousel-slide" data-index="1">
-            <h3 class="carousel-title" data-i18n="how_slide2_title">寵物鄙視攻擊</h3>
-            <p class="carousel-text" data-i18n="how_slide2_text">憤怒的貓貓或狗狗會跳出畫面，用鄙視的眼神盯著你，搭配嘲諷的文字，讓你重新思考這筆消費是否真的必要。</p>
+            <img src="images/slide-2.svg" alt="寵物鄙視攻擊" class="carousel-image-placeholder" />
           </div>
           <!-- Slide 3 -->
           <div class="carousel-slide" data-index="2">
-            <h3 class="carousel-title" data-i18n="how_slide3_title">理性消費覺醒</h3>
-            <p class="carousel-text" data-i18n="how_slide3_text">在被寵物鄙視之後，你會冷靜下來並關閉分頁，不知不覺就省下了一筆錢。錢包守住了，謝謝貓狗！</p>
+            <img src="images/slide-3.svg" alt="理性消費覺醒" class="carousel-image-placeholder" />
           </div>
         </div>
         <div class="carousel-indicators" data-carousel-indicators>
@@ -128,9 +141,7 @@
           <button class="carousel-dot" aria-label="Slide 3" data-index="2"></button>
         </div>
       </div>
-      <div class="dot-divider" aria-hidden="true">
-        <span></span><span></span>
-      </div>
+
     </div>
   </section>
 

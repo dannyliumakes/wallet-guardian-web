@@ -1,0 +1,402 @@
+<style>
+  :root {
+    --ink: #1a1a1a;
+  }
+  .style-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-top: 24px;
+  }
+  @media (min-width: 1100px) {
+    .style-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+  .style-card {
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2px solid rgba(0,0,0,0.08);
+    background: #fff;
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .style-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,.10);
+  }
+  .style-card.selected {
+    border-color: #1a1a1a;
+    box-shadow: 0 0 0 4px rgba(0,0,0,0.06);
+  }
+  .style-head {
+    padding: 22px 24px 18px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .style-tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #f3f3f3;
+    color: #555;
+    margin-bottom: 12px;
+  }
+  .style-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0 0 6px;
+    line-height: 1.15;
+  }
+  .style-tagline {
+    font-size: 13px;
+    color: #666;
+    margin: 0;
+  }
+  .palette {
+    display: flex;
+    gap: 6px;
+    padding: 14px 24px;
+  }
+  .swatch {
+    flex: 1;
+    height: 28px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .preview {
+    padding: 18px 20px 22px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .preview-frame {
+    border-radius: 16px;
+    padding: 18px;
+    min-height: 230px;
+    position: relative;
+    overflow: hidden;
+  }
+  .notes {
+    padding: 0 24px 22px;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.55;
+  }
+  .notes ul {
+    margin: 8px 0 0;
+    padding-left: 18px;
+  }
+  .notes li { margin: 3px 0; }
+
+  /* ===== Style 1: Pop Sticker ===== */
+  .s1 .preview-frame {
+    background:
+      radial-gradient(circle at 20% 30%, #ffe9f3 0 25%, transparent 26%),
+      radial-gradient(circle at 80% 70%, #e7f0ff 0 25%, transparent 26%),
+      #fffbea;
+  }
+  .s1 .badge {
+    position: absolute;
+    background: #ff3e7f;
+    color: #fff;
+    border: 2px solid #1a1a1a;
+    border-radius: 999px;
+    padding: 5px 11px;
+    font-size: 10px;
+    font-weight: 800;
+    box-shadow: 3px 3px 0 #1a1a1a;
+    transform: rotate(-6deg);
+    top: 14px; right: 14px;
+  }
+  .s1 .blob-char {
+    width: 64px; height: 64px;
+    background: #fff;
+    border: 3px solid #1a1a1a;
+    border-radius: 50%;
+    position: absolute;
+    left: 16px; bottom: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px;
+    box-shadow: 4px 4px 0 #1a1a1a;
+  }
+  .s1 .mini-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: #1a1a1a;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+  .s1 .mini-title em {
+    background: #ffd93d;
+    font-style: normal;
+    padding: 0 4px;
+    border-radius: 4px;
+    border: 2px solid #1a1a1a;
+    display: inline-block;
+    transform: rotate(-2deg);
+  }
+  .s1 .mini-cta {
+    margin-top: 10px;
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #1a1a1a; color: #fff;
+    padding: 8px 14px; border-radius: 999px;
+    font-size: 12px; font-weight: 700;
+    box-shadow: 3px 3px 0 #ff3e7f;
+  }
+
+  /* ===== Style 2: Bold Brutalist ===== */
+  .s2 .preview-frame {
+    background: #fff8e7;
+    border: 3px solid #1a1a1a;
+  }
+  .s2 .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(#1a1a1a22 1px, transparent 1px),
+      linear-gradient(90deg, #1a1a1a22 1px, transparent 1px);
+    background-size: 22px 22px;
+    opacity: .3;
+  }
+  .s2 .b-stack { position: relative; z-index: 1; }
+  .s2 .mini-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: #1a1a1a;
+    line-height: 0.95;
+    text-transform: none;
+    letter-spacing: -0.02em;
+  }
+  .s2 .mini-title span { color: #ff5722; }
+  .s2 .mini-sub {
+    font-size: 11px;
+    color: #1a1a1a;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+  .s2 .mini-cta {
+    display: inline-block;
+    margin-top: 14px;
+    background: #1a1a1a;
+    color: #ffd93d;
+    padding: 9px 16px;
+    font-weight: 800;
+    font-size: 12px;
+    border: 3px solid #1a1a1a;
+    box-shadow: 5px 5px 0 #ff5722;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .s2 .shape {
+    position: absolute;
+    right: 18px; bottom: 18px;
+    width: 60px; height: 60px;
+    background: #ff5722;
+    border: 3px solid #1a1a1a;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    box-shadow: 4px 4px 0 #1a1a1a;
+  }
+
+  /* ===== Style 3: Playful Blob ===== */
+  .s3 .preview-frame {
+    background: linear-gradient(180deg, #fff6ef 0%, #fff 60%);
+    text-align: center;
+  }
+  .s3 .blobs {
+    position: absolute;
+    bottom: -10px; left: 0; right: 0;
+    height: 90px;
+    display: flex; align-items: flex-end; justify-content: center; gap: 6px;
+  }
+  .s3 .blob {
+    width: 56px; height: 70px;
+    border-radius: 50% 50% 45% 45%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    position: relative;
+  }
+  .s3 .blob.b1 { background: #ff8a4c; }
+  .s3 .blob.b2 { background: #b78bff; }
+  .s3 .blob.b3 { background: #c8f54a; }
+  .s3 .blob.b4 { background: #ff8a4c; height: 60px; }
+  .s3 .mini-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: #1a1a1a;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-top: 10px;
+  }
+  .s3 .mini-sub {
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 8px;
+  }
+  .s3 .mini-cta {
+    display: inline-block;
+    margin-top: 14px;
+    background: #1a1a1a;
+    color: #fff;
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .s3 .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.08);
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 10px;
+    color: #555;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+  }
+</style>
+
+<h2>三個設計風格方向</h2>
+<p class="subtitle">每個方向都繼承目前網站的結構（Hero、How It Works、表單區），但走完全不同的視覺語言。點擊喜歡的方向告訴我。</p>
+
+<div class="style-grid">
+
+  <!-- ============ STYLE 1: POP STICKER ============ -->
+  <div class="style-card s1" data-choice="pop-sticker" onclick="toggleSelect(this)">
+    <div class="style-head">
+      <span class="style-tag">Style 01</span>
+      <h3 class="style-title">Pop Sticker 貼紙拼貼</h3>
+      <p class="style-tagline">手作感、貼紙風、玩具盒美學</p>
+    </div>
+    <div class="palette">
+      <div class="swatch" style="background:#ffd93d" title="主黃"></div>
+      <div class="swatch" style="background:#ff3e7f" title="桃粉"></div>
+      <div class="swatch" style="background:#3da9ff" title="天藍"></div>
+      <div class="swatch" style="background:#65d46e" title="檸檬綠"></div>
+      <div class="swatch" style="background:#1a1a1a" title="深黑"></div>
+      <div class="swatch" style="background:#fffbea" title="奶油底"></div>
+    </div>
+    <div class="preview">
+      <div class="preview-frame">
+        <div class="badge">NEW!</div>
+        <div class="mini-title">
+          憤怒的貓<br>守護你的<em>錢包</em>！
+        </div>
+        <div style="margin-top:10px; font-size:11px; color:#444; max-width:78%;">
+          下單前多想 0.5 秒，貓貓會幫你瞪老闆。
+        </div>
+        <div class="mini-cta">⬇ 加入 Chrome</div>
+        <div class="blob-char">😾</div>
+      </div>
+    </div>
+    <div class="notes">
+      <strong>視覺語彙：</strong>
+      <ul>
+        <li>所有元素都有 <strong>2-3px 黑色描邊 + 偏移黑色陰影</strong>（像貼紙翹起來）</li>
+        <li>標題重點字加黃色高光、輕微旋轉 -2°，像被螢光筆畫過</li>
+        <li>角色用「白底圓 + 表情 emoji + 黑邊」的徽章形式漂浮在版面上</li>
+        <li>按鈕是膠囊形 + 彩色硬陰影</li>
+        <li>適合：年輕、想要快樂衝突感（貓很兇但很可愛）</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ STYLE 2: BOLD BRUTALIST ============ -->
+  <div class="style-card s2" data-choice="brutalist-pop" onclick="toggleSelect(this)">
+    <div class="style-head">
+      <span class="style-tag">Style 02</span>
+      <h3 class="style-title">Bold Pop 新粗野主義</h3>
+      <p class="style-tagline">高對比、巨大標題、編輯設計感</p>
+    </div>
+    <div class="palette">
+      <div class="swatch" style="background:#ff5722" title="艷橘"></div>
+      <div class="swatch" style="background:#ffd93d" title="霓虹黃"></div>
+      <div class="swatch" style="background:#fff8e7" title="米底"></div>
+      <div class="swatch" style="background:#1a1a1a" title="純黑"></div>
+      <div class="swatch" style="background:#ffffff" title="白"></div>
+      <div class="swatch" style="background:#d8d2c2" title="灰"></div>
+    </div>
+    <div class="preview">
+      <div class="preview-frame">
+        <div class="grid-bg"></div>
+        <div class="b-stack">
+          <div class="mini-title">
+            STOP.<br>
+            <span>THINK.</span><br>
+            DON'T BUY.
+          </div>
+          <div class="mini-sub">— 你的貓正在看 —</div>
+          <div class="mini-cta">ADD TO CHROME →</div>
+        </div>
+        <div class="shape">😾</div>
+      </div>
+    </div>
+    <div class="notes">
+      <strong>視覺語彙：</strong>
+      <ul>
+        <li><strong>3px 全黑硬邊 + 巨大色塊陰影</strong>，整體像海報而非網頁</li>
+        <li>標題用超粗字體（45-72px），中英混排有節奏感</li>
+        <li>背景帶網格紋路，呼應「理性思考」的工程氣質</li>
+        <li>動物角色用簡化幾何圖（圓形容器 + emoji）放在角落像印章</li>
+        <li>適合：想要很有態度、轉換率導向、像 Linear / Vercel 的設計風格</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ STYLE 3: PLAYFUL BLOB ============ -->
+  <div class="style-card s3" data-choice="playful-blob" onclick="toggleSelect(this)">
+    <div class="style-head">
+      <span class="style-tag">Style 03</span>
+      <h3 class="style-title">Playful Blob 軟萌團塊</h3>
+      <p class="style-tagline">Koora 風格、有機曲線、彩色角色當主視覺</p>
+    </div>
+    <div class="palette">
+      <div class="swatch" style="background:#ff8a4c" title="橘"></div>
+      <div class="swatch" style="background:#b78bff" title="紫"></div>
+      <div class="swatch" style="background:#c8f54a" title="萊姆"></div>
+      <div class="swatch" style="background:#ffd93d" title="鵝黃"></div>
+      <div class="swatch" style="background:#fff6ef" title="奶白"></div>
+      <div class="swatch" style="background:#1a1a1a" title="黑"></div>
+    </div>
+    <div class="preview">
+      <div class="preview-frame">
+        <span class="pill">🐾 在 Chrome Store 上線</span>
+        <div class="mini-title">
+          讓憤怒的寵物<br>守護你的錢包
+        </div>
+        <div class="mini-sub">下單前多想一下，他們會盯著你 👀</div>
+        <div class="mini-cta">立即加入 Chrome</div>
+        <div class="blobs">
+          <div class="blob b1">😾</div>
+          <div class="blob b2">😡</div>
+          <div class="blob b3">🙄</div>
+          <div class="blob b4">😤</div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <strong>視覺語彙：</strong>
+      <ul>
+        <li>視覺主軸是<strong>四隻彩色團塊角色</strong>並排在 Hero 底部（直接呼應你給的 Koora 圖）</li>
+        <li>標題置中、大字、輕微負字距，下面壓一個白色 pill 標籤</li>
+        <li>背景純白或暖白，靠角色色彩堆出活力（不用全頁刷色）</li>
+        <li>所有容器圓角極大（28-40px），沒有任何尖角</li>
+        <li>適合：想要溫暖、品牌 IP 化、角色就是賣點的方向</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:32px; text-align:center;">
+  點上面卡片選擇方向，也可以在 terminal 直接告訴我你比較想要哪一個 / 想要混搭哪幾個元素。
+</p>
