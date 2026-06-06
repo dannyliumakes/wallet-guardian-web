@@ -105,7 +105,18 @@ function showToast(message) {
 
 // ===== Form Submissions =====
 const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbwuacZLt99sfZXJ8OlTRAs5Eih1K3sCKXxf-hvhMTp5f_4jYj7HR-v0l8ZZlNTUmL9agg/exec";
+  "https://script.google.com/macros/s/AKfycbyzqVQeN_dN_yI-_TSjJpagtdiWlaK9-bOQw4_vcHVgXtHPxilJhJiMwvL69fFsI4ZXOg/exec";
+
+const getSimpleUA = () => {
+  const ua = navigator.userAgent;
+  const browser =
+    ua.match(/(Chrome|Firefox|Safari|Edge|OPR)\/[\d.]+/)?.[0] ?? "Unknown";
+  const os =
+    ua.match(
+      /(Windows NT[\s\d.]+|Mac OS X[\s\d_]+|Linux|Android[\s\d.]+|like Mac OS X)/,
+    )?.[0] ?? "Unknown";
+  return `${browser}|${os}`;
+};
 
 const submitToSheet = async (payload) => {
   try {
@@ -138,7 +149,7 @@ wishlistForm.addEventListener("submit", async (e) => {
     hp,
     ts: window._formLoadTime,
     lang: currentLang,
-    ua: navigator.userAgent,
+    ua: getSimpleUA(),
   });
 });
 
@@ -158,7 +169,7 @@ feedbackForm.addEventListener("submit", async (e) => {
     hp,
     ts: window._formLoadTime,
     lang: currentLang,
-    ua: navigator.userAgent,
+    ua: getSimpleUA(),
   });
 });
 
@@ -208,7 +219,8 @@ window.addEventListener("resize", () => {
   }
 
   // After sliding to clone of slide 1, silently snap back to real slide 1
-  track.addEventListener("transitionend", () => {
+  track.addEventListener("transitionend", (e) => {
+    if (e.target !== track) return;
     if (currentIndex === totalSlides) snapTo(0);
   });
 

@@ -422,9 +422,13 @@ section {
 }
 
 .hero-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 32px;
+}
+
+.hero-text {
+  text-align: center;
 }
 
 .hero-text h1 {
@@ -460,6 +464,7 @@ section {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  align-items: center;
 }
 
 /* -- Primary Button -- */
@@ -546,18 +551,18 @@ section {
   text-align: center;
 }
 
-.how-it-works .section-title {
+.carousel-slide .section-title {
   margin-bottom: 12px;
 }
 
-.how-it-works .subtitle {
+.carousel-slide .subtitle {
   font-family: var(--font-family-zh);
   font-weight: 500;
   font-size: var(--fs-subtitle);
   color: var(--color-text-light);
   line-height: 1.6;
-  max-width: 700px;
-  margin: 0 auto 32px;
+  max-width: 600px;
+  margin: 0 auto 28px;
 }
 
 /* ===== Carousel ===== */
@@ -668,6 +673,14 @@ section {
   justify-content: center;
   font-size: 22px;
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.form-card .card-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .form-card .card-title {
@@ -747,11 +760,21 @@ section {
 .btn-submit.dark {
   background: var(--color-text);
   color: var(--color-text-white);
+  box-shadow: var(--shadow-brutal-yellow);
+}
+
+.btn-submit.dark:hover {
+  box-shadow: 2px 2px 0 var(--color-accent-yellow);
 }
 
 .btn-submit.yellow {
   background: var(--color-text);
   color: var(--color-accent-yellow);
+  box-shadow: var(--shadow-brutal-orange);
+}
+
+.btn-submit.yellow:hover {
+  box-shadow: 2px 2px 0 var(--color-accent-orange);
 }
 
 /* Honeypot — invisible to real users, filled by bots */
@@ -857,6 +880,7 @@ section {
   .hero-actions {
     flex-direction: row;
     align-items: center;
+    justify-content: center;
   }
 
   .form-card {
@@ -890,8 +914,29 @@ section {
   }
 
   .hero-grid {
+    display: grid;
     grid-template-columns: 1fr 1fr;
-    align-items: center;
+    grid-template-areas:
+      "text image"
+      "actions image";
+    gap: 32px;
+    align-items: start;
+  }
+
+  .hero-text {
+    grid-area: text;
+    text-align: left;
+  }
+
+  .hero-actions {
+    grid-area: actions;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .hero-image-wrap {
+    grid-area: image;
+    align-self: center;
   }
 
   .hero-image-placeholder {
