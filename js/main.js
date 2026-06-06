@@ -234,3 +234,75 @@ window.addEventListener("resize", () => {
 
 // ===== Init =====
 applyLanguage("zh-TW");
+
+// ===== Try It — GIF Follower =====
+(function () {
+  const gifCount = 28;
+  const follower = document.getElementById("gifFollower");
+  const followerImg = document.getElementById("gifFollowerImg");
+  if (!follower || !followerImg) return;
+
+  const tryBtns = document.querySelectorAll(".try-it-btn");
+  if (!tryBtns.length) return;
+
+  let currentGifIndex = null;
+  let gifCycleTimer = null;
+  let mouseX = 0;
+  let mouseY = 0;
+  let rafId = null;
+
+  function randomGifIndex(exclude) {
+    let idx;
+    do { idx = Math.floor(Math.random() * gifCount) + 1; } while (idx === exclude);
+    return idx;
+  }
+
+  function loadGif(index) {
+    followerImg.src = `images/gif/${index}.gif`;
+    currentGifIndex = index;
+  }
+
+  function startCycle() {
+    const idx = randomGifIndex(currentGifIndex);
+    loadGif(idx);
+    gifCycleTimer = setInterval(() => {
+      const next = randomGifIndex(currentGifIndex);
+      loadGif(next);
+    }, 2000);
+  }
+
+  function stopCycle() {
+    clearInterval(gifCycleTimer);
+    gifCycleTimer = null;
+  }
+
+  function trackMouse(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  }
+
+  function animateFollower() {
+    follower.style.transform = `translate(calc(${mouseX}px + 20px), calc(${mouseY}px - 50%))`;
+    rafId = requestAnimationFrame(animateFollower);
+  }
+
+  tryBtns.forEach((btn) => {
+    btn.addEventListener("mouseenter", () => {
+      follower.classList.add("visible");
+      startCycle();
+      rafId = requestAnimationFrame(animateFollower);
+    });
+
+    btn.addEventListener("mouseleave", () => {
+      follower.classList.remove("visible");
+      stopCycle();
+      cancelAnimationFrame(rafId);
+    });
+
+    btn.addEventListener("click", () => {
+      showToast(translations[currentLang]["toast_try_it"]);
+    });
+  });
+
+  document.addEventListener("mousemove", trackMouse);
+})();

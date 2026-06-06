@@ -11,14 +11,17 @@
   <link rel="stylesheet" href="css/style.css" />
 
   <!-- Favicon -->
-  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="images/favicon.svg" />
+  <link rel="icon" href="favicon/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="favicon/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="favicon/site.webmanifest" />
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
   <meta property="og:title"       content="Wallet Guardian" />
   <meta property="og:description" content="讓憤怒的寵物守護你的錢包！還在衝動購物嗎？Wallet Guardian 讓你在下單前多思考一下。" />
-  <meta property="og:image"       content="images/og-image.svg" />
+  <meta property="og:image"       content="images/og-image.png" />
   <meta property="og:image:width"  content="1200" />
   <meta property="og:image:height" content="630" />
 
@@ -26,7 +29,7 @@
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Wallet Guardian" />
   <meta name="twitter:description" content="讓憤怒的寵物守護你的錢包！" />
-  <meta name="twitter:image"       content="images/og-image.svg" />
+  <meta name="twitter:image"       content="images/og-image.png" />
 </head>
 <body>
 
@@ -48,7 +51,7 @@
           <span class="lang-option" data-lang="en">EN</span>
         </div>
 
-        <a href="#" class="btn-chrome-sm" data-i18n="add_chrome">Add to Chrome</a>
+        <a href="#" class="btn-chrome-sm"><img src="images/icon128.png" alt="" class="btn-icon" /><span data-i18n="add_chrome">Add to Chrome</span></a>
       </nav>
 
       <!-- Mobile Menu Toggle -->
@@ -62,7 +65,7 @@
       <a href="#how-it-works" data-i18n="nav_how">How It Works</a>
       <a href="#wishlist" data-i18n="nav_wishlist">Wishlist</a>
       <a href="#feedback" data-i18n="nav_feedback">Feedback</a>
-      <a href="#" class="btn-chrome-mobile" data-i18n="add_chrome">Add to Chrome</a>
+      <a href="#" class="btn-chrome-mobile"><img src="images/icon128.png" alt="" class="btn-icon" /><span data-i18n="add_chrome">Add to Chrome</span></a>
       <div class="lang-row">
         <div class="lang-switcher" id="langSwitcherMobile" role="button" tabindex="0" aria-label="Switch language">
           <div class="globe-icon" aria-hidden="true"></div>
@@ -93,18 +96,20 @@
           </div>
 
           <div class="hero-image-wrap">
-            <img src="images/hero.svg" alt="Wallet Guardian Demo" class="hero-image-placeholder" />
+            <video class="hero-image-placeholder" autoplay loop muted playsinline poster="images/hero-vid-placeholder.png">
+              <source src="images/hero-vid.mp4" type="video/mp4">
+              <img src="images/hero-vid-placeholder.png" alt="Wallet Guardian Demo" />
+            </video>
           </div>
 
           <div class="hero-actions">
             <button class="btn-primary">
-              <span class="chrome-icon" aria-hidden="true"></span>
+              <img src="images/icon128.png" alt="" class="btn-icon" />
               <span data-i18n="add_chrome">Add to Chrome</span>
             </button>
             <div class="social-icons">
-              <div class="social-placeholder">▶</div>
-              <div class="social-placeholder">●</div>
-              <div class="social-placeholder">◆</div>
+              <a href="#" class="social-placeholder" aria-label="X"><img src="images/x_logo.png" alt="X" class="social-icon-img" /></a>
+              <a href="#" class="social-placeholder" aria-label="Threads"><img src="images/thread_logo.png" alt="Threads" class="social-icon-img" /></a>
             </div>
           </div>
         </div>
@@ -121,19 +126,19 @@
           <div class="carousel-slide active" data-index="0">
             <h2 class="section-title" data-i18n="how_slide1_title">偵測購物意圖</h2>
             <p class="subtitle" data-i18n="how_slide1_text">Wallet Guardian 會自動掃描你瀏覽的網頁，當你靠近「購買」或「加入購物車」按鈕時，系統立刻啟動警戒模式。</p>
-            <img src="images/slide-1.svg" alt="偵測購物意圖" class="carousel-image-placeholder" />
+            <img src="images/slideA.png" alt="偵測購物意圖" class="carousel-image-placeholder" />
           </div>
           <!-- Slide 2 -->
           <div class="carousel-slide" data-index="1">
             <h2 class="section-title" data-i18n="how_slide2_title">寵物鄙視攻擊</h2>
             <p class="subtitle" data-i18n="how_slide2_text">憤怒的貓貓或狗狗會跳出畫面，用鄙視的眼神盯著你，搭配嘲諷的文字，讓你重新思考這筆消費是否真的必要。</p>
-            <img src="images/slide-2.svg" alt="寵物鄙視攻擊" class="carousel-image-placeholder" />
+            <img src="images/slideB.png" alt="寵物鄙視攻擊" class="carousel-image-placeholder" />
           </div>
           <!-- Slide 3 -->
           <div class="carousel-slide" data-index="2">
             <h2 class="section-title" data-i18n="how_slide3_title">理性消費覺醒</h2>
             <p class="subtitle" data-i18n="how_slide3_text">在被寵物鄙視之後，你會冷靜下來並關閉分頁，不知不覺就省下了一筆錢。錢包守住了，謝謝貓狗！</p>
-            <img src="images/slide-3.svg" alt="理性消費覺醒" class="carousel-image-placeholder" />
+            <img src="images/slideC.png" alt="理性消費覺醒" class="carousel-image-placeholder" />
           </div>
         </div>
         <div class="carousel-indicators" data-carousel-indicators>
@@ -143,6 +148,22 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ===== TRY IT SECTION (desktop only) ===== -->
+  <section class="try-it-section" id="try-it">
+    <div class="container">
+      <h2 class="section-title try-it-title" data-i18n="try_it_title">來嘗試看看效果</h2>
+      <p class="subtitle try-it-subtitle" data-i18n="try_it_subtitle">把滑鼠移到按鈕上，感受一下 Wallet Guardian 的威力</p>
+      <div class="try-it-buttons">
+        <button class="try-it-btn" id="btn-buy-now" data-i18n="try_btn_buy">立即購買</button>
+        <button class="try-it-btn try-it-btn--cart" id="btn-add-cart" data-i18n="try_btn_cart">加入購物車</button>
+      </div>
+    </div>
+    <!-- GIF follower element -->
+    <div class="gif-follower" id="gifFollower">
+      <img id="gifFollowerImg" src="" alt="" />
     </div>
   </section>
 
@@ -201,8 +222,7 @@
       <div class="footer-content">
         <a href="#" class="logo">Wallet Guardian</a>
         <div class="footer-links">
-          <a href="#" data-i18n="footer_privacy">Privacy Policy</a>
-          <a href="#" data-i18n="footer_terms">Terms of Service</a>
+          <a href="privacy-policy.html" data-i18n="footer_privacy">Privacy Policy</a>
         </div>
         <div class="footer-copy" data-i18n="footer_copy">© 2026 Wallet Guardian</div>
       </div>
