@@ -131,6 +131,18 @@ const submitToSheet = async (payload) => {
   }
 };
 
+function isValidUrl(value) {
+  // Accept bare domains (e.g. amazon.com) or full URLs with protocol
+  const bare = /^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/\S*)?$/;
+  try {
+    const withProtocol = /^https?:\/\//i.test(value) ? value : "https://" + value;
+    new URL(withProtocol);
+    return bare.test(value) || /^https?:\/\//i.test(value);
+  } catch {
+    return false;
+  }
+}
+
 wishlistForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const url = document.getElementById("wishlistInput").value.trim();
@@ -138,6 +150,10 @@ wishlistForm.addEventListener("submit", async (e) => {
   const hp = document.getElementById("wishlistHp").value;
   if (!url) {
     showToast(translations[currentLang]["toast_error_required"]);
+    return;
+  }
+  if (!isValidUrl(url)) {
+    showToast(translations[currentLang]["toast_error_url"]);
     return;
   }
   showToast(translations[currentLang]["toast_wishlist"]);
