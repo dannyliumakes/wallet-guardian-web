@@ -39,7 +39,8 @@ const translations = {
     footer_terms: '服務條款',
     footer_copy: '© 2024 Wallet Guardian',
     toast_wishlist: '感謝您的願望！我們會派寵物去駐守 🐱',
-    toast_feedback: '感謝您的回饋！我們會立即處理 🐶'
+    toast_feedback: '感謝您的回饋！我們會立即處理 🐶',
+    toast_error_required: '請填寫必填欄位 ⚠️'
   },
   en: {
     nav_how: 'How It Works',
@@ -78,6 +79,7 @@ const translations = {
     footer_terms: 'Terms of Service',
     footer_copy: '© 2024 Wallet Guardian',
     toast_wishlist: "Thanks for your wish! We'll send a pet to patrol 🐱",
-    toast_feedback: "Thanks for your feedback! We'll handle it right away 🐶"
+    toast_feedback: "Thanks for your feedback! We'll handle it right away 🐶",
+    toast_error_required: 'Please fill in the required field ⚠️'
   }
 };

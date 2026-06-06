@@ -754,6 +754,16 @@ section {
   color: var(--color-accent-yellow);
 }
 
+/* Honeypot — invisible to real users, filled by bots */
+.form-card input[name="website"] {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* ============================================================
    FOOTER
    ============================================================ */
