@@ -15,7 +15,7 @@ const menuToggle = document.getElementById("menuToggle");
 const mobileNav = document.getElementById("mobileNav");
 const langDesk = document.getElementById("langSwitcherDesktop");
 const langMob = document.getElementById("langSwitcherMobile");
-const toastEl = document.getElementById("toast");
+const toastContainer = document.getElementById("toast-container");
 const wishlistForm = document.getElementById("wishlistForm");
 const feedbackForm = document.getElementById("feedbackForm");
 
@@ -92,14 +92,26 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 });
 
 // ===== Toast Notification =====
-let toastTimeout = null;
+const TOAST_MAX = 3;
 
 function showToast(message) {
-  toastEl.textContent = message;
-  toastEl.classList.add("show");
-  clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(() => {
-    toastEl.classList.remove("show");
+  // Hard-remove oldest before adding new one to guarantee max on screen
+  const all = toastContainer.querySelectorAll(".toast");
+  if (all.length >= TOAST_MAX) {
+    all[all.length - 1].remove();
+  }
+
+  const el = document.createElement("div");
+  el.className = "toast";
+  el.textContent = message;
+  toastContainer.prepend(el);
+
+  void el.offsetHeight; // force reflow to trigger entrance transition
+  el.classList.add("show");
+
+  setTimeout(() => {
+    el.classList.remove("show");
+    el.addEventListener("transitionend", () => el.remove(), { once: true });
   }, 2800);
 }
 
@@ -143,8 +155,18 @@ function isValidUrl(value) {
   }
 }
 
+const FORM_COOLDOWN_MS = 8000;
+
+function lockForm(form) {
+  const btn = form.querySelector("button[type='submit']");
+  btn.disabled = true;
+  setTimeout(() => { btn.disabled = false; }, FORM_COOLDOWN_MS);
+}
+
 wishlistForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+  const btn = wishlistForm.querySelector("button[type='submit']");
+  if (btn.disabled) return;
   const url = document.getElementById("wishlistInput").value.trim();
   const desc = document.getElementById("wishlistDescInput").value.trim();
   const hp = document.getElementById("wishlistHp").value;
@@ -156,6 +178,7 @@ wishlistForm.addEventListener("submit", async (e) => {
     showToast(translations[currentLang]["toast_error_url"]);
     return;
   }
+  lockForm(wishlistForm);
   showToast(translations[currentLang]["toast_wishlist"]);
   wishlistForm.reset();
   await submitToSheet({
@@ -171,12 +194,15 @@ wishlistForm.addEventListener("submit", async (e) => {
 
 feedbackForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+  const btn = feedbackForm.querySelector("button[type='submit']");
+  if (btn.disabled) return;
   const text = document.getElementById("feedbackInput").value.trim();
   const hp = document.getElementById("feedbackHp").value;
   if (!text) {
     showToast(translations[currentLang]["toast_error_required"]);
     return;
   }
+  lockForm(feedbackForm);
   showToast(translations[currentLang]["toast_feedback"]);
   feedbackForm.reset();
   await submitToSheet({
@@ -284,7 +310,7 @@ applyLanguage("zh-TW");
     gifCycleTimer = setInterval(() => {
       const next = randomGifIndex(currentGifIndex);
       loadGif(next);
-    }, 2000);
+    }, 5000);
   }
 
   function stopCycle() {

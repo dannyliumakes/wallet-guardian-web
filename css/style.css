@@ -834,6 +834,13 @@ section {
   box-shadow: 0 0 0 var(--color-accent-orange);
 }
 
+.btn-submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 2px 2px 0 var(--color-text);
+}
+
 /* Honeypot — invisible to real users, filled by bots */
 .form-card input[name="website"] {
   position: absolute;
@@ -896,11 +903,20 @@ section {
 /* ============================================================
    TOAST
    ============================================================ */
-.toast {
+#toast-container {
   position: fixed;
   bottom: 24px;
   left: 50%;
-  transform: translateX(-50%) translateY(100px);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  z-index: 200;
+  pointer-events: none;
+}
+
+.toast {
   background: var(--color-text);
   color: var(--color-text-white);
   padding: 14px 28px;
@@ -910,16 +926,15 @@ section {
   font-size: var(--fs-label);
   font-weight: 700;
   font-family: var(--font-family-zh);
-  opacity: 0;
-  transition: all 0.4s ease;
-  z-index: 200;
-  pointer-events: none;
   white-space: nowrap;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .toast.show {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
 }
 
 /* ============================================================
